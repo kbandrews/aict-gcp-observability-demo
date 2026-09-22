@@ -1,0 +1,11 @@
+google-cloud-aiplatform[agent_engines,adk]==1.153.1
+google-adk==1.39.1
+google-cloud-trace
+opentelemetry-exporter-gcp-trace
+opentelemetry-exporter-otlp-proto-http==1.41.1
+opentelemetry-sdk==1.41.1
+opentelemetry-instrumentation-google-genai
+opentelemetry-instrumentation-httpx
+opentelemetry-instrumentation-grpc
+pydantic>=2,<3
+cloudpickle>=3,<4
