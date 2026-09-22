@@ -6,4 +6,5 @@ venv/
 *.tfvars
 *.pkl
 dependencies.tar.gz
+deployment.json
 .DS_Store

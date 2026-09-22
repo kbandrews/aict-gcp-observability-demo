@@ -129,18 +129,26 @@ stock ADK Agent Engine app at all**.
 
 ## Deployment
 
-The deploy script (`deploy_update26.py`) is **not in this repo** — it was not packaged
-with the agent's dependency tarball and lives in a separate environment. The source here
-was recovered from the deployed artifact:
+`deploy_update26.py` is the deploy/update tool for this repository. It preserves the
+deployed package layout while loading the tracked source from `agent/`.
 
-```
-gs://project-2cd7ecad-fc72-4535-92e-aict-agent-staging/agent_engine/dependencies.tar.gz
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Create if deployment.json does not exist; otherwise invoke the current deployment.
+python deploy_update26.py
+
+# Update the existing reasoning engine, then run the three synthetic test prompts.
+python deploy_update26.py --update
 ```
 
-Deployment is via `vertexai.agent_engines` (`agent_engines.create()` / `.update()`) with
-`env_vars` set as above. Agent Engine has **no console UI for environment variables** —
-they must be passed through the SDK call, and they are baked into the deployed revision,
-so any change requires a redeploy.
+The script records the deployed resource name in the local-only `deployment.json` file.
+It is intentionally ignored by Git. Deployment is via `vertexai.agent_engines`
+(`agent_engines.create()` / `.update()`) with `env_vars` set as above. Agent Engine has
+**no console UI for environment variables** — they must be passed through the SDK call,
+and they are baked into the deployed revision, so any change requires a redeploy.
 
 To verify a deployment's live configuration, read it back from the API rather than
 trusting the deploy tool's output:
